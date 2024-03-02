@@ -57,9 +57,6 @@ namespace Command.Main
 
         private void Update() => InputService.UpdateInputService();
 
-        internal void ProcessUnitCommand(UnitCommand commandToProccess)
-        {
-            throw new NotImplementedException();
-        }
+        public void ProcessUnitCommand(ICommand commandToProcess) => PlayerService.ProcessUnitCommand(commandToProcess as UnitCommand);
     }
 }
