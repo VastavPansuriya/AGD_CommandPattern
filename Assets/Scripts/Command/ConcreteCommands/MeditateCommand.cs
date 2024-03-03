@@ -14,6 +14,11 @@ namespace Command.Commands
 
         public override void Execute() => GameService.Instance.ActionService.GetActionByType(CommandType.Meditate).PerformAction(actorUnit, targetUnit, willHitTarget);
 
+        public override void Undo()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override bool WillHitTarget() => true;
     }
 }
