@@ -6,10 +6,11 @@ namespace Command.Commands
     public class CommandInvoker
     {
         private Stack<ICommand> commandRegistry = new Stack<ICommand>();
-        public CommandInvoker()
-        {
-            SubscribeToEvents();
-        }
+
+        public CommandInvoker() => SubscribeToEvents();
+
+        private void SubscribeToEvents() => GameService.Instance.EventService.OnReplayButtonClicked.AddListener(SetReplayStack);
+
         public void ProcessCommand(ICommand commandToProcess)
         {
             ExecuteCommand(commandToProcess);
@@ -26,17 +27,14 @@ namespace Command.Commands
                 commandRegistry.Pop().Undo();
         }
 
-        private bool RegistryEmpty() => commandRegistry.Count == 0;
-
-        private bool CommandBelongsToActivePlayer() => (commandRegistry.Peek() as UnitCommand).commandData.ActorPlayerID == GameService.Instance.PlayerService.ActivePlayerID;
-
-
-        private void SubscribeToEvents() => GameService.Instance.EventService.OnReplayButtonClicked.AddListener(SetReplayStack);
-
         public void SetReplayStack()
         {
             GameService.Instance.ReplayService.SetCommandStack(commandRegistry);
             commandRegistry.Clear();
         }
+
+        private bool RegistryEmpty() => commandRegistry.Count == 0;
+
+        private bool CommandBelongsToActivePlayer() => (commandRegistry.Peek() as UnitCommand).commandData.ActorPlayerID == GameService.Instance.PlayerService.ActivePlayerID;
     }
 }

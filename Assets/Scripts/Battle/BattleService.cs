@@ -21,6 +21,7 @@ namespace Command.Battle
             GameService.Instance.EventService.OnBattleSelected.AddListener(LoadBattle);
             GameService.Instance.EventService.OnReplayButtonClicked.AddListener(ReplayBattle);
         }
+
         private void LoadBattle(int battleId)
         {
             currentBattleId = battleId;
@@ -31,8 +32,8 @@ namespace Command.Battle
             GameService.Instance.PlayerService.Init(battleDataToLoad.Player1Data, battleDataToLoad.Player2Data);
         }
 
-        private BattleScriptableObject GetBattleDataByID(int battleId) => battleScriptableObjects.Find(battleSO => battleSO.BattleID == battleId);
-
         private void ReplayBattle() => LoadBattle(currentBattleId);
+
+        private BattleScriptableObject GetBattleDataByID(int battleId) => battleScriptableObjects.Find(battleSO => battleSO.BattleID == battleId);
     }
 }

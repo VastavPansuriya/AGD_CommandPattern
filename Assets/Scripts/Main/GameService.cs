@@ -10,6 +10,7 @@ using Command.Battle;
 using Command.Actions;
 using UnityEngine.UI;
 using Command.Commands;
+using Command.Replay;
 
 namespace Command.Main
 {
@@ -49,10 +50,10 @@ namespace Command.Main
             EventService = new EventService();
             ActionService = new ActionService();
             InputService = new InputService();
+            CommandInvoker = new CommandInvoker();
             BattleService = new BattleService(battleScriptableObjects);
             PlayerService = new PlayerService();
             uiService.Init(battleScriptableObjects.Count);
-            CommandInvoker = new CommandInvoker();
             ReplayService = new ReplayService();
         }
 
