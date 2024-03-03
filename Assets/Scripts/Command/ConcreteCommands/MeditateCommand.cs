@@ -16,7 +16,13 @@ namespace Command.Commands
 
         public override void Undo()
         {
-            throw new System.NotImplementedException();
+            if (willHitTarget)
+            {
+                if (!targetUnit.IsAlive())
+                    targetUnit.Revive();
+                targetUnit.RestoreHealth(actorUnit.CurrentPower);
+                actorUnit.Owner.ResetCurrentActiveUnit();
+            }
         }
 
         public override bool WillHitTarget() => true;

@@ -8,6 +8,7 @@ namespace Command.UI
 {
     public class GameplayUIView : MonoBehaviour, IUIView
     {
+
         private GameplayUIController controller;
         [SerializeField] private TextMeshProUGUI turnText;
         [SerializeField] private TextMeshProUGUI missedText;
@@ -18,9 +19,12 @@ namespace Command.UI
         [SerializeField] private Color ActionSelectionOverlayColor;
         [SerializeField] private Image backgroundImage;
 
+        [SerializeField] Button undoButton;
+
         public void SetController(GameplayUIController controllerToSet) 
         {
             controller = controllerToSet;
+            undoButton.onClick.AddListener(controller.OnUndoButtonClicked);
             missedText.canvasRenderer.SetAlpha(0);
         }
 
